@@ -1,6 +1,6 @@
 package bowlingGameResultCalculator;
 
-public interface BowlingGameFrame {
+public interface Frame {
 
 	void addScore(Integer numberOfPins);
 	

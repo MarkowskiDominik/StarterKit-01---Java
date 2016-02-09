@@ -192,6 +192,21 @@ public class BowlingGameResultCalculatorTest {
 		// then
 		assertEquals(Integer.valueOf(12), result);
 	}
+	
+	@Test
+	public void shouldReturn_9_ForEightenRollsZeroAndLastFrameRolls_7_2() {
+		// given
+		// when
+		for (int i = 0; i < 18; i++) {
+			bowlingGameresultCalculator.roll(Integer.valueOf(0));
+		}
+		bowlingGameresultCalculator.roll(Integer.valueOf(7));
+		bowlingGameresultCalculator.roll(Integer.valueOf(2));
+		Integer result = bowlingGameresultCalculator.score();
+		
+		// then
+		assertEquals(Integer.valueOf(9), result);
+	}
 
 	@Test
 	public void shouldReturn_Exception_ForToManyRolls() {

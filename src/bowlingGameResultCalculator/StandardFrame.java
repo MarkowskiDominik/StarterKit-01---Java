@@ -1,13 +1,13 @@
 package bowlingGameResultCalculator;
 
-public class StandardBowlingGameFrame implements BowlingGameFrame {
+public class StandardFrame implements Frame {
 
 	private Integer firstRoll = 0;
 	private Integer secondRoll = 0;
 	private Integer attemps = 0;
-	public BowlingGameFrame nextFrame = null;
+	public Frame nextFrame = null;
 
-	public StandardBowlingGameFrame() {
+	public StandardFrame() {
 	}
 
 	@Override
@@ -75,11 +75,11 @@ public class StandardBowlingGameFrame implements BowlingGameFrame {
 		return firstRoll;
 	}
 	
-	public BowlingGameFrame getNextFrame() {
+	public Frame getNextFrame() {
 		return nextFrame;
 	}
 	
-	public void setNextFrame(BowlingGameFrame nextFrame) {
+	public void setNextFrame(Frame nextFrame) {
 		this.nextFrame = nextFrame;
 	}
 }

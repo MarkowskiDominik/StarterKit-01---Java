@@ -5,15 +5,15 @@ import java.util.logging.Logger;
 
 public class BowlingGameResultCalculator implements BowlingGameResultCalculatorInterface {
 
-	private static Logger logger = Logger.getLogger("BowlingGameResultCalculator");
 	private static final Integer MAX_FRAME = 10;
 	private static final Integer MAX_PINS = 10;
-	private LinkedList<BowlingGameFrame> bowlingGameFrames;
+	private LinkedList<Frame> bowlingGameFrames;
 	private Integer gameScore = 0;
 	private Integer frameCounter = 0;
+	private Logger logger = Logger.getLogger("BowlingGameResultCalculator");
 
 	public BowlingGameResultCalculator() {
-		bowlingGameFrames = new LinkedList<BowlingGameFrame>();
+		bowlingGameFrames = new LinkedList<Frame>();
 	}
 
 	public void roll(Integer numberOfPins) {
@@ -21,7 +21,7 @@ public class BowlingGameResultCalculator implements BowlingGameResultCalculatorI
 			throw new IllegalArgumentException("illegal argument " + numberOfPins);
 		}
 
-		BowlingGameFrame currentFrame = getCurrentFrame();
+		Frame currentFrame = getCurrentFrame();
 		if (currentFrame == null) {
 			throw new IllegalArgumentException("to many rolls");
 		}
@@ -30,8 +30,8 @@ public class BowlingGameResultCalculator implements BowlingGameResultCalculatorI
 		//logger.info("frame: " + frameCounter + " | roll: " + numberOfPins.toString());
 	}
 
-	private BowlingGameFrame getCurrentFrame() {
-		BowlingGameFrame currentFrame = null;
+	private Frame getCurrentFrame() {
+		Frame currentFrame = null;
 
 		if (!isFinished()) {
 			if (!bowlingGameFrames.isEmpty()) {
@@ -39,11 +39,11 @@ public class BowlingGameResultCalculator implements BowlingGameResultCalculatorI
 			}
 	
 			if (currentFrame == null || currentFrame.isDone()) {
-				bowlingGameFrames.add(BowlingGameFrameFactory.getBowlingGameFrame(++frameCounter));
+				bowlingGameFrames.add(FrameFactory.getBowlingGameFrame(++frameCounter));
 			}
 			
-			if (currentFrame instanceof StandardBowlingGameFrame) {
-				StandardBowlingGameFrame tmp = (StandardBowlingGameFrame) currentFrame;
+			if (currentFrame instanceof StandardFrame) {
+				StandardFrame tmp = (StandardFrame) currentFrame;
 				tmp.setNextFrame(bowlingGameFrames.getLast());
 			}
 			
@@ -53,7 +53,7 @@ public class BowlingGameResultCalculator implements BowlingGameResultCalculatorI
 	}
 
 	public Integer score() {
-		for (BowlingGameFrame bowlingGameFrame : bowlingGameFrames) {
+		for (Frame bowlingGameFrame : bowlingGameFrames) {
 			gameScore += bowlingGameFrame.getScore();
 		}
 		return gameScore;

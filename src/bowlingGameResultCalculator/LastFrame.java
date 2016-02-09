@@ -1,13 +1,13 @@
 package bowlingGameResultCalculator;
 
-public class LastBowlingGameFrame implements BowlingGameFrame {
+public class LastFrame implements Frame {
 
 	private Integer firstRoll = 0;
 	private Integer secondRoll = 0;
 	private Integer thirdRoll = 0;
 	private Integer attemps = 0;
 
-	public LastBowlingGameFrame() {
+	public LastFrame() {
 	}
 
 	@Override
