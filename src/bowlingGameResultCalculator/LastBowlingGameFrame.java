@@ -8,19 +8,21 @@ public class LastBowlingGameFrame implements BowlingGameFrame {
 	private Integer attemps = 0;
 
 	public LastBowlingGameFrame() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public void setScore(Integer numberOfPins) {
+	public void addScore(Integer numberOfPins) {
 		if (attemps.equals(Integer.valueOf(0))) {
 			firstRoll = numberOfPins;
-		} else {
-			if (firstRoll + numberOfPins < Integer.valueOf(11)) {
-				secondRoll = numberOfPins;
-			} else {
-				throw new IllegalArgumentException("two rolls over 10 ");
-			}
+		}
+		if (attemps.equals(Integer.valueOf(1))) {
+			secondRoll = numberOfPins;
+		}
+		if (!isStrike() && firstRoll + secondRoll > Integer.valueOf(11)) {
+			throw new IllegalArgumentException("two rolls over 10 in last frame");
+		}
+		if (attemps.equals(Integer.valueOf(2)) && isBonusRoll()) {
+			thirdRoll = numberOfPins;
 		}
 		attemps++;
 	}
@@ -55,19 +57,7 @@ public class LastBowlingGameFrame implements BowlingGameFrame {
 	}
 
 	@Override
-	public Integer getStrikeBonus() {
+	public Integer getStrikeBonusToPreviousFrame() {
 		return firstRoll + secondRoll;
-	}
-
-	@Override
-	public BowlingGameFrame getNextFrame() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setNextFrame(BowlingGameFrame nextFrame) {
-		// TODO Auto-generated method stub
-		
 	}
 }

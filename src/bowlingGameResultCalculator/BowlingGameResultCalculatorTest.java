@@ -2,6 +2,8 @@ package bowlingGameResultCalculator;
 
 import static org.junit.Assert.*;
 
+import java.util.logging.Logger;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,12 +11,18 @@ import org.junit.Test;
 public class BowlingGameResultCalculatorTest {
 
 	private BowlingGameResultCalculator bowlingGameresultCalculator;
+	private Logger logger = Logger.getLogger("BowlingGameResultCalculatorTest");
 
 	@Before
 	public void initializeBowlingGameResultCalculator() {
 		bowlingGameresultCalculator = new BowlingGameResultCalculator();
 	}
 
+	@After
+	public void finalizeBowlingGameResultCalculator() {
+		bowlingGameresultCalculator = null;
+	}
+	
 	@Test
 	public void shouldReturn_0_ForRoll_0() {
 		// given
@@ -46,6 +54,7 @@ public class BowlingGameResultCalculatorTest {
 		try {
 			bowlingGameresultCalculator.roll(Integer.valueOf(-1));
 		} catch (IllegalArgumentException e) {
+			logger.info(e.toString());
 			exception = Boolean.TRUE;
 		}
 
@@ -62,6 +71,7 @@ public class BowlingGameResultCalculatorTest {
 		try {
 			bowlingGameresultCalculator.roll(Integer.valueOf(11));
 		} catch (IllegalArgumentException e) {
+			logger.info(e.toString());
 			exception = Boolean.TRUE;
 		}
 
@@ -70,7 +80,7 @@ public class BowlingGameResultCalculatorTest {
 	}
 
 	@Test
-	public void shouldReturn_2_ForRolls_2_2() {
+	public void shouldReturn_2_ForRolls_1_1() {
 		// given
 		// when
 		bowlingGameresultCalculator.roll(Integer.valueOf(1));
@@ -79,6 +89,24 @@ public class BowlingGameResultCalculatorTest {
 
 		// then
 		assertEquals(Integer.valueOf(2), result);
+	}
+
+	@Test
+	public void shouldReturn_Exception_ForRoll_6_6() {
+		// given
+		Boolean exception = Boolean.FALSE;
+
+		// when
+		try {
+			bowlingGameresultCalculator.roll(Integer.valueOf(6));
+			bowlingGameresultCalculator.roll(Integer.valueOf(6));
+		} catch (IllegalArgumentException e) {
+			logger.info(e.toString());
+			exception = Boolean.TRUE;
+		}
+
+		// then
+		assertTrue(exception);
 	}
 
 	@Test
@@ -149,8 +177,39 @@ public class BowlingGameResultCalculatorTest {
 		assertEquals(Integer.valueOf(19), result);
 	}
 	
-	@After
-	public void finalizeBowlingGameResultCalculator() {
-		bowlingGameresultCalculator = null;
+	@Test
+	public void shouldReturn_12_ForEightenRollsZeroAndLastFrameRolls_9_1_2() {
+		// given
+		// when
+		for (int i = 0; i < 18; i++) {
+			bowlingGameresultCalculator.roll(Integer.valueOf(0));
+		}
+		bowlingGameresultCalculator.roll(Integer.valueOf(9));
+		bowlingGameresultCalculator.roll(Integer.valueOf(1));
+		bowlingGameresultCalculator.roll(Integer.valueOf(2));
+		Integer result = bowlingGameresultCalculator.score();
+		
+		// then
+		assertEquals(Integer.valueOf(12), result);
+	}
+
+	@Test
+	public void shouldReturn_Exception_ForToManyRolls() {
+		// given
+		Boolean exception = Boolean.FALSE;
+
+		// when
+		for (int i = 0; i < 20; i++) {
+			bowlingGameresultCalculator.roll(Integer.valueOf(0));
+		}
+		try {
+			bowlingGameresultCalculator.roll(Integer.valueOf(0));
+		} catch (IllegalArgumentException e) {
+			logger.info(e.toString());
+			exception = Boolean.TRUE;
+		}
+
+		// then
+		assertTrue(exception);
 	}
 }

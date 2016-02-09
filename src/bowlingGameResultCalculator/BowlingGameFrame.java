@@ -2,7 +2,7 @@ package bowlingGameResultCalculator;
 
 public interface BowlingGameFrame {
 
-	void setScore(Integer numberOfPins);
+	void addScore(Integer numberOfPins);
 	
 	public Integer getScore();
 
@@ -14,9 +14,5 @@ public interface BowlingGameFrame {
 
 	public Boolean isStrike();
 	
-	public Integer getStrikeBonus();
-	
-	public BowlingGameFrame getNextFrame();
-
-	void setNextFrame(BowlingGameFrame nextFrame);
+	public Integer getStrikeBonusToPreviousFrame();
 }

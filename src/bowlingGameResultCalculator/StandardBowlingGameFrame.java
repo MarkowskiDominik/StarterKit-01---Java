@@ -5,14 +5,13 @@ public class StandardBowlingGameFrame implements BowlingGameFrame {
 	private Integer firstRoll = 0;
 	private Integer secondRoll = 0;
 	private Integer attemps = 0;
-	private BowlingGameFrame nextFrame = null;
+	public BowlingGameFrame nextFrame = null;
 
 	public StandardBowlingGameFrame() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public void setScore(Integer numberOfPins) {
+	public void addScore(Integer numberOfPins) {
 		if (attemps.equals(Integer.valueOf(0))) {
 			firstRoll = numberOfPins;
 		}
@@ -44,7 +43,7 @@ public class StandardBowlingGameFrame implements BowlingGameFrame {
 				bonusPoint = nextFrame.getFirstRoll();
 			}
 			if (isStrike()) {
-				bonusPoint = nextFrame.getStrikeBonus();
+				bonusPoint = nextFrame.getStrikeBonusToPreviousFrame();
 			}
 		}
 		return bonusPoint;
@@ -66,7 +65,7 @@ public class StandardBowlingGameFrame implements BowlingGameFrame {
 	}
 	
 	@Override
-	public Integer getStrikeBonus() {
+	public Integer getStrikeBonusToPreviousFrame() {
 		if (!isStrike()) {
 			return firstRoll + secondRoll;
 		}
@@ -75,13 +74,11 @@ public class StandardBowlingGameFrame implements BowlingGameFrame {
 		}
 		return firstRoll;
 	}
-
-	@Override
+	
 	public BowlingGameFrame getNextFrame() {
 		return nextFrame;
 	}
-
-	@Override
+	
 	public void setNextFrame(BowlingGameFrame nextFrame) {
 		this.nextFrame = nextFrame;
 	}
