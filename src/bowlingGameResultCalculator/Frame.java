@@ -2,7 +2,7 @@ package bowlingGameResultCalculator;
 
 public interface Frame {
 
-	void addScore(Integer numberOfPins);
+	public void addScore(Integer numberOfPins);
 	
 	public Integer getScore();
 

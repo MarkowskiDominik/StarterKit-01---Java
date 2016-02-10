@@ -11,7 +11,7 @@ public class LastFrame implements Frame {
 	}
 
 	@Override
-	public void addScore(Integer numberOfPins) {
+	public void addScore(Integer numberOfPins) throws IllegalArgumentException {
 		if (attemps.equals(Integer.valueOf(0))) {
 			firstRoll = numberOfPins;
 		}

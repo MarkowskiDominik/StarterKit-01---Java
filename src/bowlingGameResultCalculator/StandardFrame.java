@@ -11,18 +11,17 @@ public class StandardFrame implements Frame {
 	}
 
 	@Override
-	public void addScore(Integer numberOfPins) {
+	public void addScore(Integer numberOfPins) throws IllegalArgumentException {
 		if (attemps.equals(Integer.valueOf(0))) {
 			firstRoll = numberOfPins;
 		}
-		else {
-			if (firstRoll + numberOfPins < Integer.valueOf(11)) {
-				secondRoll = numberOfPins;
-			}
-			else {
-				throw new IllegalArgumentException("sum of two rolls in frame over 10 ");
-			}
+		if (attemps.equals(Integer.valueOf(1))) {
+			secondRoll = numberOfPins;
 		}
+		if (firstRoll + secondRoll > Integer.valueOf(10)) {
+			throw new IllegalArgumentException("sum of two rolls in frame over 10 ");
+		}
+		
 		attemps++;		
 	}
 

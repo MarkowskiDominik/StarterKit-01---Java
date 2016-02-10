@@ -10,13 +10,14 @@ public class BowlingGameResultCalculator implements BowlingGameResultCalculatorI
 	private LinkedList<Frame> bowlingGameFrames;
 	private Integer gameScore = 0;
 	private Integer frameCounter = 0;
+	@SuppressWarnings("unused")
 	private Logger logger = Logger.getLogger("BowlingGameResultCalculator");
 
 	public BowlingGameResultCalculator() {
 		bowlingGameFrames = new LinkedList<Frame>();
 	}
 
-	public void roll(Integer numberOfPins) {
+	public void roll(Integer numberOfPins) throws IllegalArgumentException {
 		if (numberOfPins > MAX_PINS || numberOfPins < Integer.valueOf(0)) {
 			throw new IllegalArgumentException("illegal argument " + numberOfPins);
 		}
